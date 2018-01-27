@@ -182,9 +182,15 @@ function build_platform
 		# Copy resulting images to UEFI image dir
 		#
 		if [ $VERBOSE -eq 1 ]; then
-			echo "Copying bl1.bin and fip.bin to "$WORKSPACE/Build/$PLATFORM_IMAGE_DIR/$BUILD_PROFILE/FV/""
+			echo "Copying bl1.bin bl2.bin and fip.bin to "$WORKSPACE/Build/$PLATFORM_IMAGE_DIR/$BUILD_PROFILE/FV/""
 		fi
-		cp -a build/"$ATF_PLATFORM/$BUILD_TYPE"/{bl1,fip}.bin "$WORKSPACE/Build/$PLATFORM_IMAGE_DIR/$BUILD_PROFILE/FV/"
+		if [ -f build/"$ATF_PLATFORM/$BUILD_TYPE"/bl1.bin ]; then
+			cp -a build/"$ATF_PLATFORM/$BUILD_TYPE"/bl1.bin "$WORKSPACE/Build/$PLATFORM_IMAGE_DIR/$BUILD_PROFILE/FV/"
+		fi
+		if [ -f build/"$ATF_PLATFORM/$BUILD_TYPE"/bl2.bin ]; then
+			cp -a build/"$ATF_PLATFORM/$BUILD_TYPE"/bl2.bin "$WORKSPACE/Build/$PLATFORM_IMAGE_DIR/$BUILD_PROFILE/FV/"
+		fi
+		cp -a build/"$ATF_PLATFORM/$BUILD_TYPE"/fip.bin "$WORKSPACE/Build/$PLATFORM_IMAGE_DIR/$BUILD_PROFILE/FV/"
 	else
 		return 1
 	fi
